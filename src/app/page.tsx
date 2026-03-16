@@ -94,8 +94,8 @@ export default function Home() {
                 <CardContent className="p-8">
                   <span className="text-4xl font-bold" style={{ color: c.color, opacity: 0.3 }}>{c.stage}</span>
                   <h3 className="text-lg font-bold mt-2 mb-4 whitespace-pre-line leading-snug">{c.title}</h3>
-                  <blockquote className="border-l-3 pl-4 text-muted-foreground italic mb-3" style={{ borderColor: c.color }}>
-                    &ldquo;{c.quote}&rdquo;
+                  <blockquote className="border-l-4 pl-4 mb-3" style={{ borderColor: c.color }}>
+                    <span className="text-lg font-bold text-foreground">&ldquo;{c.quote}&rdquo;</span>
                   </blockquote>
                   <p className="text-sm font-medium" style={{ color: c.color }}>{c.who}</p>
                 </CardContent>
