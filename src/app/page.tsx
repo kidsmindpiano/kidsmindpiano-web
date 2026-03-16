@@ -65,17 +65,17 @@ export default function Home() {
         <motion.div className="absolute top-32 left-1/3 w-4 h-4 bg-[#4CB9E7] rounded-full" animate={{ y: [0, 12, 0] }} transition={{ repeat: Infinity, duration: 3.5 }} />
 
         <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center text-left">
-            <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-              <Image src="/logo/logo-main.jpg" alt="Kids Mind Piano" width={100} height={100} className="rounded-2xl shadow-lg mb-6" />
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-                음악이 <span className="text-primary">힐링</span>이 되는 순간
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                피아노를 통해 아이들의 마음이 성장합니다.<br />
-                스스로 음악의 즐거움을 발견하도록 도와드려요.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+          <motion.div className="mb-8" initial="hidden" animate="visible" variants={fadeUp} custom={0}>
+            <Image src="/logo/logo-main.jpg" alt="Kids Mind Piano" width={140} height={140} className="mx-auto rounded-3xl shadow-xl" />
+          </motion.div>
+          <motion.h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6" initial="hidden" animate="visible" variants={fadeUp} custom={1}>
+            음악이 <span className="text-primary">힐링</span>이 되는 순간
+          </motion.h1>
+          <motion.p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed" initial="hidden" animate="visible" variants={fadeUp} custom={2}>
+            피아노를 통해 아이들의 마음이 성장합니다.<br />
+            스스로 음악의 즐거움을 발견하도록 도와드려요.
+          </motion.p>
+          <motion.div className="flex flex-col sm:flex-row gap-4 justify-center" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
             <Link href="/contact">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/25">
                 퍼스트레슨 신청 <ArrowRight className="ml-2 w-5 h-5" />
@@ -86,12 +86,7 @@ export default function Home() {
                 수업 알아보기
               </Button>
             </Link>
-              </div>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
-              <Image src="/hero.jpg" alt="온라인 피아노 레슨" width={600} height={500} className="rounded-3xl shadow-2xl w-full object-cover" />
-            </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
