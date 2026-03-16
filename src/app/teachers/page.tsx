@@ -122,9 +122,11 @@ export default function TeachersPage() {
                         </div>
                       ))}
                     </div>
-                    <Link href="/contact" className="block mt-8">
-                      <Button className="bg-primary hover:bg-primary/90 rounded-full px-6">체험수업 예약하기</Button>
-                    </Link>
+                    {t.role.includes("대표") && (
+                      <Link href="/contact" className="block mt-8">
+                        <Button className="bg-primary hover:bg-primary/90 rounded-full px-6">체험수업 예약하기</Button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </CardContent>
