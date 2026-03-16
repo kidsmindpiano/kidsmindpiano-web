@@ -7,7 +7,7 @@ import { Menu, X, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { href: "/", label: "홈" },
+  { href: "/", label: "처음으로" },
   { href: "/about", label: "수업 안내" },
   { href: "/pricing", label: "수업료" },
   { href: "/teachers", label: "선생님" },
