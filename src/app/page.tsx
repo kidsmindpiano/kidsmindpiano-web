@@ -56,7 +56,7 @@ export default function Home() {
           <motion.div className="flex flex-col sm:flex-row gap-4 justify-center" initial="hidden" animate="visible" variants={fadeUp} custom={3}>
             <Link href="/contact">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6 rounded-full shadow-lg shadow-primary/20">
-                무료 체험수업 신청 <ArrowRight className="ml-2 w-5 h-5" />
+                퍼스트레슨 신청 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
             <Link href="/about">
@@ -179,7 +179,7 @@ export default function Home() {
           <p className="text-muted-foreground mb-10">잔소리 없이도 스스로 피아노를 찾는 아이로 변신!<br />키즈마인드피아노와 함께 매일이 기다려지는 피아노 시간을 선물해주세요.</p>
           <Link href="/contact">
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-10 py-6 rounded-full shadow-lg shadow-primary/20">
-              무료 체험수업 신청하기 🎹
+              퍼스트레슨 신청하기 🎹
             </Button>
           </Link>
         </div>

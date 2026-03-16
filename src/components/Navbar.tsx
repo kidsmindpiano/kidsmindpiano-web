@@ -35,7 +35,7 @@ export default function Navbar() {
             <Button variant="outline" size="sm" className="border-primary/30 text-primary hover:bg-primary/5">로그인</Button>
           </Link>
           <Link href="/contact">
-            <Button size="sm" className="bg-primary hover:bg-primary/90 rounded-full px-5">무료 체험수업</Button>
+            <Button size="sm" className="bg-primary hover:bg-primary/90 rounded-full px-5">퍼스트레슨</Button>
           </Link>
         </div>
 
@@ -62,7 +62,7 @@ export default function Navbar() {
                 <Button variant="outline" className="w-full">로그인</Button>
               </Link>
               <Link href="/contact" onClick={() => setOpen(false)}>
-                <Button className="w-full bg-primary rounded-full">무료 체험수업</Button>
+                <Button className="w-full bg-primary rounded-full">퍼스트레슨</Button>
               </Link>
             </div>
           </motion.div>

@@ -16,7 +16,7 @@ export default function ContactPage() {
             체험수업 신청
           </motion.h1>
           <motion.p className="text-lg text-muted-foreground" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-            30분 무료 체험수업으로 우리 아이에게 맞는지 확인해보세요!
+            30분 퍼스트레슨으로 우리 아이에게 맞는지 확인해보세요!
           </motion.p>
         </div>
       </section>
@@ -49,7 +49,7 @@ export default function ContactPage() {
                     <textarea id="message" rows={3} placeholder="궁금한 점이나 원하시는 수업 시간 등을 알려주세요" className="mt-1.5 w-full rounded-md border border-border bg-background px-3 py-2 text-sm resize-none" />
                   </div>
                   <Button type="submit" className="w-full bg-primary hover:bg-primary/90 py-6 text-lg rounded-full">
-                    <Send className="w-5 h-5 mr-2" /> 체험수업 신청하기
+                    <Send className="w-5 h-5 mr-2" /> 퍼스트레슨 신청하기
                   </Button>
                 </form>
               </CardContent>
