@@ -89,7 +89,7 @@ export default function Home() {
               </div>
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
-              <Image src="/hero2.jpg" alt="온라인 피아노 레슨" width={600} height={500} className="rounded-3xl shadow-2xl w-full object-cover" />
+              <Image src="/hero.jpg" alt="온라인 피아노 레슨" width={600} height={500} className="rounded-3xl shadow-2xl w-full object-cover" />
             </motion.div>
           </div>
         </div>
