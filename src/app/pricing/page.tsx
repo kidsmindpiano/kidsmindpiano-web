@@ -9,9 +9,12 @@ import Link from "next/link";
 const plans = [
   {
     name: "퍼스트레슨",
-    price: "무료",
-    period: "30분 × 1회",
-    features: ["1:1 Zoom 수업", "아이 성향 파악", "커리큘럼 상담", "부담 없이 체험"],
+    price: "₩20,000",
+    originalPrice: "₩40,000",
+    dollarPrice: "$20",
+    dollarOriginal: "$30",
+    period: "30분 × 1회 (50% 할인)",
+    features: ["1:1 Zoom 수업", "아이 성향 파악", "커리큘럼 상담", "50% 할인 특가"],
     cta: "퍼스트레슨 신청",
     popular: false,
   },
@@ -67,7 +70,18 @@ export default function PricingPage() {
                 )}
                 <CardContent className="p-8">
                   <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-                  <div className="mb-1"><span className="text-4xl font-bold text-primary">{plan.price}</span></div>
+                  <div className="mb-1">
+                    {"originalPrice" in plan && (
+                      <span className="text-lg text-muted-foreground line-through mr-2">{plan.originalPrice}</span>
+                    )}
+                    <span className="text-4xl font-bold text-primary">{plan.price}</span>
+                    {"dollarPrice" in plan && (
+                      <div className="mt-1 text-sm text-muted-foreground">
+                        <span className="line-through mr-1">{plan.dollarOriginal}</span>
+                        <span className="text-primary font-semibold">{plan.dollarPrice}</span>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-sm text-muted-foreground mb-6">{plan.period}</p>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((f) => (
