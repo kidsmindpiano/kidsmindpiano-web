@@ -42,7 +42,7 @@ const teachers = [
     ],
   },
   {
-    image: "",
+    image: "/teachers/seohee.jpg",
     name: "안서희",
     role: "피아노 강사",
     quote: "음악을 통해 아이의 가능성을 발견합니다.",
