@@ -82,7 +82,7 @@ export default function TeachersPage() {
                   <div className="md:col-span-2 bg-gradient-to-br from-[#FDE8D8] to-[#F5E6D8] p-8 flex flex-col justify-center">
                     <div className="w-36 h-36 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg">
                       {t.image ? (
-                        <Image src={t.image} alt={t.name} width={300} height={300} quality={100} style={{ objectPosition: `center ${t.imgScale > 1 ? '10%' : '20%'}`, transform: `scale(${t.imgScale || 1})` }} className="w-full h-full object-cover" />
+                        <Image src={t.image} alt={t.name} width={300} height={300} quality={100} style={{ objectPosition: "center 5%", transform: `scale(${t.imgScale || 1})` }} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full bg-white/60 flex items-center justify-center text-5xl">🎹</div>
                       )}
