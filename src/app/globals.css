@@ -4,27 +4,27 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: #FFFAF5;
+  --color-background: #FFFAF8;
   --color-foreground: #2D2A26;
-  --color-primary: #5B8FB9;
+  --color-primary: #7C5CFC;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #A7C7E7;
+  --color-secondary: #FFB547;
   --color-secondary-foreground: #2D2A26;
-  --color-accent: #7AACB3;
+  --color-accent: #3DBB7D;
   --color-accent-foreground: #ffffff;
+  --color-coral: #FF6B6B;
+  --color-sky: #4CB9E7;
   --color-muted: #F5F0EB;
   --color-muted-foreground: #8B8178;
   --color-card: #ffffff;
   --color-card-foreground: #2D2A26;
   --color-border: #E8E0D8;
-  --color-ring: #5B8FB9;
+  --color-ring: #7C5CFC;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
-  --color-warm-gradient-from: #FDE8D8;
-  --color-warm-gradient-to: #D4EEF1;
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
   --font-sans: 'Pretendard', system-ui, -apple-system, sans-serif;
 }
 
