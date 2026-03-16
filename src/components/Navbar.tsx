@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Music } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -21,7 +22,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-[#FFFAF5]/80 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl text-foreground">
-          <span className="text-2xl">🎹</span>
+          <Image src="/logo/logo-color.jpg" alt="키즈마인드피아노" width={40} height={40} className="rounded-lg" />
           키즈마인드피아노
         </Link>
 
