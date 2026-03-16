@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, Globe, Sparkles, Star, ArrowRight, Music2 } from "lucide-react";
+import { useRef } from "react";
+import { Heart, Globe, Sparkles, Star, ArrowRight, Music2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
@@ -43,6 +44,12 @@ const reviews = [
 ];
 
 export default function Home() {
+  const reviewRef = useRef<HTMLDivElement>(null);
+  const scrollReviews = (dir: "left" | "right") => {
+    if (reviewRef.current) {
+      reviewRef.current.scrollBy({ left: dir === "left" ? -320 : 320, behavior: "smooth" });
+    }
+  };
   return (
     <div>
       {/* Hero */}
@@ -165,7 +172,15 @@ export default function Home() {
         <motion.div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#FF6B6B]/10 rounded-full" animate={{ scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 4 }} />
         <div className="max-w-5xl mx-auto px-4 relative z-10">
           <h2 className="text-3xl font-bold text-center mb-12">학부모님들의 이야기</h2>
-          <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
+          <div className="relative">
+            <button onClick={() => scrollReviews("left")} className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition hidden md:block">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={() => scrollReviews("right")} className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition hidden md:block">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+          <div ref={reviewRef} className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
             {reviews.map((r, i) => (
               <motion.div key={i} className="flex-shrink-0 w-[300px] snap-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
                 <Card className="h-full border-0 shadow-md">
