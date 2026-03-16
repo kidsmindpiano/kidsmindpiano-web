@@ -26,7 +26,7 @@ const teachers = [
     ],
   },
   {
-    image: "",
+    image: "/teachers/kyungseo.jpg",
     name: "김경서",
     role: "피아노 강사",
     quote: "탄탄한 기본기 위에 아이만의 음악을 만들어갑니다.",
