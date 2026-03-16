@@ -78,11 +78,11 @@ export default function TeachersPage() {
               <CardContent className="p-0">
                 <div className="grid md:grid-cols-5">
                   <div className="md:col-span-2 bg-gradient-to-br from-[#FDE8D8] to-[#F5E6D8] p-8 flex flex-col justify-center">
-                    <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+                    <div className="w-36 h-36 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg">
                       {t.image ? (
-                        <Image src={t.image} alt={t.name} width={96} height={96} className="w-full h-full object-cover object-top scale-150" />
+                        <Image src={t.image} alt={t.name} width={300} height={300} quality={100} className="w-full h-full object-cover object-top scale-125" />
                       ) : (
-                        <div className="w-full h-full bg-white/60 flex items-center justify-center text-4xl">🎹</div>
+                        <div className="w-full h-full bg-white/60 flex items-center justify-center text-5xl">🎹</div>
                       )}
                     </div>
                     <h3 className="text-2xl font-bold text-center">{t.name}</h3>
