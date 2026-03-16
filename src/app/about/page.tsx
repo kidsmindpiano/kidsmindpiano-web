@@ -45,6 +45,42 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* 연주회 - 핵심 성과 */}
+      <section className="py-20 bg-gradient-to-br from-[#FDE8D8] via-[#FFECD2] to-[#D4EEF1]">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-6">
+            <motion.span className="inline-block bg-primary/10 text-primary text-sm font-bold px-4 py-1.5 rounded-full mb-4" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+              🏆 키즈마인드피아노의 자랑
+            </motion.span>
+            <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              온라인 연주회 8회 개최
+            </motion.h2>
+            <motion.p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-2" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+              전 세계 12개국 아이들이 함께 만드는 특별한 무대.<br />
+              학생이 직접 MC를 맡고, 아트워크를 제출하며, 무대 위의 주인공이 됩니다.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto mb-12">
+            {[
+              { num: "8회", label: "연주회 개최" },
+              { num: "12개국", label: "참여 국가" },
+              { num: "Zoom", label: "실시간 라이브" },
+            ].map((s, i) => (
+              <motion.div key={s.label} className="text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                <div className="text-2xl md:text-3xl font-bold text-primary">{s.num}</div>
+                <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          <ConcertCarousel />
+        </div>
+      </section>
+    </div>
+  );
+}
+
       {/* 수업 방식 */}
       <section className="py-16 max-w-5xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">이렇게 수업해요</h2>
@@ -143,38 +179,3 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 연주회 - 핵심 성과 */}
-      <section className="py-20 bg-gradient-to-br from-[#FDE8D8] via-[#FFECD2] to-[#D4EEF1]">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-6">
-            <motion.span className="inline-block bg-primary/10 text-primary text-sm font-bold px-4 py-1.5 rounded-full mb-4" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              🏆 키즈마인드피아노의 자랑
-            </motion.span>
-            <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              온라인 연주회 8회 개최
-            </motion.h2>
-            <motion.p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-2" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              전 세계 12개국 아이들이 함께 만드는 특별한 무대.<br />
-              학생이 직접 MC를 맡고, 아트워크를 제출하며, 무대 위의 주인공이 됩니다.
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto mb-12">
-            {[
-              { num: "8회", label: "연주회 개최" },
-              { num: "12개국", label: "참여 국가" },
-              { num: "Zoom", label: "실시간 라이브" },
-            ].map((s, i) => (
-              <motion.div key={s.label} className="text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <div className="text-2xl md:text-3xl font-bold text-primary">{s.num}</div>
-                <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
-              </motion.div>
-            ))}
-          </div>
-
-          <ConcertCarousel />
-        </div>
-      </section>
-    </div>
-  );
-}
