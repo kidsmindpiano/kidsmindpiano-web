@@ -53,7 +53,7 @@ export default function PricingPage() {
             수업료 안내
           </motion.h1>
           <motion.p className="text-lg text-muted-foreground" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-            첫 퍼스트레슨은 무료! 부담 없이 시작하세요.
+            첫 퍼스트레슨, 부담 없이 시작하세요.
           </motion.p>
         </div>
       </section>
