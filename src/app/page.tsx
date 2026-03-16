@@ -172,14 +172,6 @@ export default function Home() {
         <motion.div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#FF6B6B]/10 rounded-full" animate={{ scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 4 }} />
         <div className="max-w-5xl mx-auto px-4 relative z-10">
           <h2 className="text-3xl font-bold text-center mb-12">학부모님들의 이야기</h2>
-          <div className="relative">
-            <button onClick={() => scrollReviews("left")} className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition hidden md:block">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button onClick={() => scrollReviews("right")} className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition hidden md:block">
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
           <div ref={reviewRef} className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
             {reviews.map((r, i) => (
               <motion.div key={i} className="flex-shrink-0 w-[300px] snap-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
@@ -194,6 +186,14 @@ export default function Home() {
                 </Card>
               </motion.div>
             ))}
+          </div>
+          <div className="flex justify-center gap-4 mt-6">
+            <button onClick={() => scrollReviews("left")} className="bg-white shadow-md rounded-full p-3 hover:bg-gray-50 transition">
+              <ChevronLeft className="w-5 h-5 text-primary" />
+            </button>
+            <button onClick={() => scrollReviews("right")} className="bg-white shadow-md rounded-full p-3 hover:bg-gray-50 transition">
+              <ChevronRight className="w-5 h-5 text-primary" />
+            </button>
           </div>
         </div>
       </section>
