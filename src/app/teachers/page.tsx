@@ -27,6 +27,7 @@ const teachers = [
   },
   {
     image: "/teachers/kyungseo.jpg",
+    imgPos: "object-[center_30%]",
     name: "김경서",
     role: "피아노 강사",
     quote: "탄탄한 기본기 위에 아이만의 음악을 만들어갑니다.",
@@ -43,6 +44,7 @@ const teachers = [
   },
   {
     image: "/teachers/seohee.jpg",
+    imgPos: "object-[center_25%]",
     name: "안서희",
     role: "피아노 강사",
     quote: "음악을 통해 아이의 가능성을 발견합니다.",
@@ -80,7 +82,7 @@ export default function TeachersPage() {
                   <div className="md:col-span-2 bg-gradient-to-br from-[#FDE8D8] to-[#F5E6D8] p-8 flex flex-col justify-center">
                     <div className="w-36 h-36 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg">
                       {t.image ? (
-                        <Image src={t.image} alt={t.name} width={300} height={300} quality={100} className="w-full h-full object-cover object-top scale-125" />
+                        <Image src={t.image} alt={t.name} width={300} height={300} quality={100} style={{ objectPosition: "center 20%" }} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full bg-white/60 flex items-center justify-center text-5xl">🎹</div>
                       )}
