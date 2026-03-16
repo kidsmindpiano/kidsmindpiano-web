@@ -171,19 +171,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 bg-gradient-to-br from-[#FDE8D8] to-[#D4EEF1]">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">&ldquo;피아노 치는 게 좋다고요~&rdquo;</h2>
-          <p className="text-muted-foreground mb-4">우리 아이의 말이 될 수 있어요!</p>
-          <p className="text-muted-foreground mb-10">잔소리 없이도 스스로 피아노를 찾는 아이로 변신!<br />키즈마인드피아노와 함께 매일이 기다려지는 피아노 시간을 선물해주세요.</p>
-          <Link href="/contact">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-10 py-6 rounded-full shadow-lg shadow-primary/20">
-              퍼스트레슨 신청하기 🎹
-            </Button>
-          </Link>
-        </div>
-      </section>
+
     </div>
   );
 }
