@@ -45,7 +45,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-br from-[#FDE8D8] via-[#FFF5ED] to-[#D4EEF1] py-24 md:py-36">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <motion.div className="mb-6" initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-            <Image src="/logo/logo-color.jpg" alt="Kids Mind Piano" width={160} height={160} className="mx-auto rounded-2xl shadow-lg" />
+            <Image src="/logo/logo-main.jpg" alt="Kids Mind Piano" width={160} height={160} className="mx-auto rounded-2xl shadow-lg" />
           </motion.div>
           <motion.h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6" initial="hidden" animate="visible" variants={fadeUp} custom={1}>
             음악이 힐링이 되는 순간

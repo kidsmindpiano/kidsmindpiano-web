@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <div className="flex items-center gap-2 font-bold text-lg mb-3">
-            <Image src="/logo/logo-color.jpg" alt="키즈마인드피아노" width={32} height={32} className="rounded" />
+            <Image src="/logo/logo-main.jpg" alt="키즈마인드피아노" width={32} height={32} className="rounded" />
             키즈마인드피아노
           </div>
           <p className="text-white/50 text-sm leading-relaxed">
