@@ -33,9 +33,13 @@ const worries = [
 ];
 
 const reviews = [
-  { name: "미국 거주 J맘", text: "한국어도 자연스럽게 느는 게 보여서 정말 만족해요. 아이가 수업 날만 기다립니다!" },
-  { name: "독일 거주 S맘", text: "즉흥 연주가 아이 자존감에 엄청 도움이 됐어요. 다른 학원이랑 차원이 다릅니다." },
-  { name: "호주 거주 K맘", text: "레슨 노트를 매주 보내주시니까 뭘 배우고 있는지 정확히 알 수 있어 좋아요." },
+  { name: "곽○○ 어머니", text: "아린이가 처음에 피아노 어렵다고 하기 싫다 했는데 선생님도 한국선생님이라 너무 좋다고 하고 몇번해보더니 피아노 재밌다고 하네요. 연습도 매일 하라고 하면 곧잘 하구요 ❤️" },
+  { name: "김○○ 어머니", text: "리온이가 이번 레슨이 너무 재미있었나봐요 ㅋㅋ 자기가 만든 곡 동생한테 자랑하고 미소가 끊이질 않네요" },
+  { name: "김○○ 어머니", text: "유나가 키즈마인드 하면서 피아노를 즐기면서 의욕적으로 하더니 곡도 만들고 멋지네요 🫶🏻 유나가 만든 곡을 선물로 받다니 ❤️ 정말 의미있는 선물이네요~~" },
+  { name: "Grace 어머니", text: "오늘 너무 재밌었대요 ㅎ" },
+  { name: "구○○ 어머니", text: "단기간에 뭔가 눈에띄는 성과보다는 최대한 흥미있게 배웠으면 좋겠네요!" },
+  { name: "클레어 어머니", text: "아이가 수업을 재밌어 하네요. 감사합니다 😊 클레어가 너무 부끄러웠다고 하네요 ☺️" },
+  { name: "하○○ 어머니", text: "오 멋지네요!! 🎵" },
 ];
 
 export default function Home() {
@@ -161,15 +165,15 @@ export default function Home() {
         <motion.div className="absolute bottom-10 -left-10 w-32 h-32 bg-[#FF6B6B]/10 rounded-full" animate={{ scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 4 }} />
         <div className="max-w-5xl mx-auto px-4 relative z-10">
           <h2 className="text-3xl font-bold text-center mb-12">학부모님들의 이야기</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
             {reviews.map((r, i) => (
-              <motion.div key={r.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
+              <motion.div key={i} className="flex-shrink-0 w-[300px] snap-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
                 <Card className="h-full border-0 shadow-md">
-                  <CardContent className="p-8">
-                    <div className="flex gap-1 mb-4">
+                  <CardContent className="p-6">
+                    <div className="flex gap-1 mb-3">
                       {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-[#FFB547] text-[#FFB547]" />)}
                     </div>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">&ldquo;{r.text}&rdquo;</p>
+                    <p className="text-foreground mb-4 leading-relaxed text-sm">&ldquo;{r.text}&rdquo;</p>
                     <p className="font-semibold text-sm text-primary">{r.name}</p>
                   </CardContent>
                 </Card>
