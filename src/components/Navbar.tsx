@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useAuth } from "@/lib/AuthContext";
 
 const links = [
   { href: "/", label: "처음으로" },
@@ -17,6 +18,7 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { user, loading } = useAuth();
 
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border">
@@ -32,12 +34,22 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link href="/login">
-            <Button variant="outline" size="sm" className="border-primary/30 text-primary hover:bg-primary/5 rounded-full">로그인</Button>
-          </Link>
-          <Link href="/contact">
-            <Button size="sm" className="bg-primary hover:bg-primary/90 rounded-full px-5 shadow-md shadow-primary/20">퍼스트레슨</Button>
-          </Link>
+          {!loading && (
+            user ? (
+              <Link href="/dashboard">
+                <Button size="sm" className="bg-primary hover:bg-primary/90 rounded-full px-5 shadow-md shadow-primary/20">마이페이지</Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="outline" size="sm" className="border-primary/30 text-primary hover:bg-primary/5 rounded-full">로그인</Button>
+                </Link>
+                <Link href="/contact">
+                  <Button size="sm" className="bg-primary hover:bg-primary/90 rounded-full px-5 shadow-md shadow-primary/20">퍼스트레슨</Button>
+                </Link>
+              </>
+            )
+          )}
         </div>
 
         <button className="md:hidden" onClick={() => setOpen(!open)}>
@@ -52,8 +64,16 @@ export default function Navbar() {
               {links.map((l) => (
                 <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-sm font-medium py-2">{l.label}</Link>
               ))}
-              <Link href="/login" onClick={() => setOpen(false)}><Button variant="outline" className="w-full rounded-full">로그인</Button></Link>
-              <Link href="/contact" onClick={() => setOpen(false)}><Button className="w-full bg-primary rounded-full">퍼스트레슨</Button></Link>
+              {user ? (
+                <Link href="/dashboard" onClick={() => setOpen(false)}>
+                  <Button className="w-full bg-primary rounded-full">마이페이지</Button>
+                </Link>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setOpen(false)}><Button variant="outline" className="w-full rounded-full">로그인</Button></Link>
+                  <Link href="/contact" onClick={() => setOpen(false)}><Button className="w-full bg-primary rounded-full">퍼스트레슨</Button></Link>
+                </>
+              )}
             </div>
           </motion.div>
         )}
