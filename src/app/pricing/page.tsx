@@ -14,7 +14,6 @@ const plans = [
     features: ["1:1 Zoom 수업", "아이 성향 파악", "커리큘럼 상담", "부담 없이 체험"],
     cta: "체험수업 신청",
     popular: false,
-    accent: "border-accent",
   },
   {
     name: "정규반",
@@ -23,7 +22,6 @@ const plans = [
     features: ["1:1 맞춤 레슨", "매주 레슨 노트", "수업 영상 제공", "월별 학부모 상담", "온라인 연주회 참가"],
     cta: "등록 문의",
     popular: true,
-    accent: "border-primary",
   },
   {
     name: "집중반",
@@ -32,7 +30,6 @@ const plans = [
     features: ["주 2회 집중 레슨", "빠른 실력 향상", "매주 레슨 노트", "수업 영상 제공", "월별 학부모 상담", "연주회 우선 배정"],
     cta: "등록 문의",
     popular: false,
-    accent: "border-secondary",
   },
 ];
 
@@ -47,7 +44,7 @@ const faqs = [
 export default function PricingPage() {
   return (
     <div>
-      <section className="bg-gradient-to-br from-secondary/5 to-primary/5 py-16 md:py-24">
+      <section className="bg-gradient-to-br from-[#FDE8D8] to-[#D4EEF1] py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.h1 className="text-4xl md:text-5xl font-bold mb-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             수업료 안내
@@ -58,17 +55,11 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="py-16 max-w-6xl mx-auto px-4">
+      <section className="py-16 max-w-5xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8">
           {plans.map((plan, i) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-            >
-              <Card className={`h-full border-2 ${plan.accent} ${plan.popular ? "shadow-xl scale-105" : "shadow-md"} relative`}>
+            <motion.div key={plan.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}>
+              <Card className={`h-full border-2 ${plan.popular ? "border-primary shadow-xl scale-105" : "border-transparent shadow-md"} relative`}>
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1">
                     <Sparkles className="w-3 h-3" /> 인기
@@ -76,20 +67,17 @@ export default function PricingPage() {
                 )}
                 <CardContent className="p-8">
                   <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-                  <div className="mb-1">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                  </div>
+                  <div className="mb-1"><span className="text-4xl font-bold text-primary">{plan.price}</span></div>
                   <p className="text-sm text-muted-foreground mb-6">{plan.period}</p>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-center gap-2 text-sm">
-                        <Check className="w-4 h-4 text-primary shrink-0" />
-                        {f}
+                        <Check className="w-4 h-4 text-primary shrink-0" /> {f}
                       </li>
                     ))}
                   </ul>
                   <Link href="/contact">
-                    <Button className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : ""}`} variant={plan.popular ? "default" : "outline"}>
+                    <Button className={`w-full rounded-full ${plan.popular ? "bg-primary hover:bg-primary/90" : ""}`} variant={plan.popular ? "default" : "outline"}>
                       {plan.cta}
                     </Button>
                   </Link>
@@ -100,10 +88,9 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-16 bg-muted">
+      <section className="py-16 bg-[#FFF5ED]">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">자주 묻는 질문</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">궁금한 점이 있으신가요?</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <motion.div key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
