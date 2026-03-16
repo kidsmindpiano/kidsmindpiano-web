@@ -13,7 +13,7 @@ const plans = [
     originalPrice: "₩40,000",
     dollarPrice: "$20",
     dollarOriginal: "$30",
-    period: "30분 × 1회 (50% 할인)",
+    period: "40분 × 1회 (50% 할인)",
     features: ["온라인수업 셋팅", "아이 성향 파악", "커리큘럼 상담", "50% 할인 특가"],
     cta: "퍼스트레슨 신청",
     popular: false,

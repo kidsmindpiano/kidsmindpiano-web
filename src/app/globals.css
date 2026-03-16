@@ -6,9 +6,9 @@
 @theme inline {
   --color-background: #FFFAF5;
   --color-foreground: #2D2A26;
-  --color-primary: #E8915A;
+  --color-primary: #5B8FB9;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #F5C6A0;
+  --color-secondary: #A7C7E7;
   --color-secondary-foreground: #2D2A26;
   --color-accent: #7AACB3;
   --color-accent-foreground: #ffffff;
@@ -17,7 +17,7 @@
   --color-card: #ffffff;
   --color-card-foreground: #2D2A26;
   --color-border: #E8E0D8;
-  --color-ring: #E8915A;
+  --color-ring: #5B8FB9;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
   --color-warm-gradient-from: #FDE8D8;

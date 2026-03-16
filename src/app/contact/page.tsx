@@ -16,7 +16,7 @@ export default function ContactPage() {
             체험수업 신청
           </motion.h1>
           <motion.p className="text-lg text-muted-foreground" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-            30분 퍼스트레슨으로 우리 아이에게 맞는지 확인해보세요!
+            40분 퍼스트레슨으로 우리 아이에게 맞는지 확인해보세요!
           </motion.p>
         </div>
       </section>
@@ -71,7 +71,7 @@ export default function ContactPage() {
               <CardContent className="p-8">
                 <h3 className="font-bold mb-4">체험수업 안내</h3>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li className="flex gap-2"><span>⏰</span> 30분 무료 진행</li>
+                  <li className="flex gap-2"><span>⏰</span> 40분 진행</li>
                   <li className="flex gap-2"><span>📱</span> Zoom으로 진행</li>
                   <li className="flex gap-2"><span>🎹</span> 피아노/키보드 필요</li>
                   <li className="flex gap-2"><span>👨‍👩‍👧</span> 보호자 동석 권장</li>
