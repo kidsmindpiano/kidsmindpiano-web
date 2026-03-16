@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Clock, Award, BookOpen, GraduationCap } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,7 @@ const teachers = [
   {
     name: "최지혜",
     role: "대표 · 음악치료사",
+    image: "/teachers/jihye.jpg",
     quote: "아이의 마음을 먼저 읽고, 음악으로 대화합니다.",
     education: ["강원예술고등학교 피아노 전공", "총신대학교 교회음악과 피아노 전공", "평택대학원 음악치료 전공"],
     experience: ["온라인 피아노 레슨 5년+", "오프라인 피아노 레슨 8년+", "음악치료 임상 경험 1년", "12개국 학생 지도"],
@@ -24,6 +26,7 @@ const teachers = [
     ],
   },
   {
+    image: "",
     name: "김경서",
     role: "피아노 강사",
     quote: "탄탄한 기본기 위에 아이만의 음악을 만들어갑니다.",
@@ -39,6 +42,7 @@ const teachers = [
     ],
   },
   {
+    image: "",
     name: "안서희",
     role: "피아노 강사",
     quote: "음악을 통해 아이의 가능성을 발견합니다.",
@@ -74,8 +78,12 @@ export default function TeachersPage() {
               <CardContent className="p-0">
                 <div className="grid md:grid-cols-5">
                   <div className="md:col-span-2 bg-gradient-to-br from-[#FDE8D8] to-[#F5E6D8] p-8 flex flex-col justify-center">
-                    <div className="w-24 h-24 bg-white/60 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
-                      🎹
+                    <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+                      {t.image ? (
+                        <Image src={t.image} alt={t.name} width={96} height={96} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full bg-white/60 flex items-center justify-center text-4xl">🎹</div>
+                      )}
                     </div>
                     <h3 className="text-2xl font-bold text-center">{t.name}</h3>
                     <p className="text-sm text-primary text-center mb-3">{t.role}</p>
