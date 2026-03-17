@@ -4,12 +4,15 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 import { supabase } from "./supabase";
 import { User, Session } from "@supabase/supabase-js";
 
+export type UserRole = "student" | "parent" | "teacher" | "admin";
+
 type AuthContextType = {
   user: User | null;
   session: Session | null;
+  role: UserRole | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
-  signUp: (email: string, password: string, name: string) => Promise<{ error: any }>;
+  signUp: (email: string, password: string, name: string, role: UserRole) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 };
 
@@ -18,18 +21,21 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
+  const [role, setRole] = useState<UserRole | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      setRole((session?.user?.user_metadata?.role as UserRole) ?? null);
       setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
+      setRole((session?.user?.user_metadata?.role as UserRole) ?? null);
       setLoading(false);
     });
 
@@ -41,21 +47,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   };
 
-  const signUp = async (email: string, password: string, name: string) => {
+  const signUp = async (email: string, password: string, name: string, role: UserRole) => {
     const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { name } },
+      email, password,
+      options: { data: { name, role } },
     });
     return { error };
   };
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-  };
+  const signOut = async () => { await supabase.auth.signOut(); };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, role, loading, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

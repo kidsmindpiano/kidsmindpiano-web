@@ -8,13 +8,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { useAuth } from "@/lib/AuthContext";
+import { useAuth, UserRole } from "@/lib/AuthContext";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [role, setRole] = useState<UserRole>("parent");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,12 +28,8 @@ export default function SignupPage() {
     if (password !== confirm) { setError("비밀번호가 일치하지 않습니다."); return; }
     if (password.length < 6) { setError("비밀번호는 6자 이상이어야 합니다."); return; }
     setLoading(true);
-    const { error } = await signUp(email, password, name);
-    if (error) {
-      setError(error.message);
-    } else {
-      setSuccess(true);
-    }
+    const { error } = await signUp(email, password, name, role);
+    if (error) { setError(error.message); } else { setSuccess(true); }
     setLoading(false);
   };
 
@@ -63,6 +60,17 @@ export default function SignupPage() {
             </div>
             {error && <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg mb-4">{error}</div>}
             <form className="space-y-4" onSubmit={handleSubmit}>
+              <div>
+                <Label>가입 유형</Label>
+                <div className="grid grid-cols-2 gap-2 mt-1.5">
+                  {([["parent", "👨‍👩‍👧 학부모"], ["student", "🧒 학생"]] as const).map(([val, label]) => (
+                    <button key={val} type="button" onClick={() => setRole(val)}
+                      className={`p-3 rounded-xl border-2 text-sm font-medium transition ${role === val ? "border-primary bg-primary/5 text-primary" : "border-border hover:border-primary/30"}`}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <div><Label htmlFor="name">이름</Label><Input id="name" placeholder="홍길동" className="mt-1.5" value={name} onChange={(e) => setName(e.target.value)} required /></div>
               <div><Label htmlFor="email">이메일</Label><Input id="email" type="email" placeholder="email@example.com" className="mt-1.5" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
               <div><Label htmlFor="password">비밀번호</Label><Input id="password" type="password" placeholder="6자 이상" className="mt-1.5" value={password} onChange={(e) => setPassword(e.target.value)} required /></div>
