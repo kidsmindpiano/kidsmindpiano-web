@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth, UserRole } from "@/lib/AuthContext";
-import { LogOut, Home, Users, FileText, Video, Gamepad2, MessageSquare, Settings, Calendar, BarChart3 } from "lucide-react";
+import { LogOut, Home, Users, FileText, Video, Gamepad2, MessageSquare, Settings, Calendar, BarChart3, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type MenuItem = { href: string; label: string; icon: React.ElementType };
@@ -13,6 +13,7 @@ const menuByRole: Record<UserRole, MenuItem[]> = {
     { href: "/dashboard/teacher", label: "홈", icon: Home },
     { href: "/dashboard/teacher/students", label: "내 학생", icon: Users },
     { href: "/dashboard/teacher/notes", label: "수업 일지", icon: FileText },
+    { href: "/dashboard/teacher/schedule", label: "스케줄", icon: CalendarDays },
   ],
   parent: [
     { href: "/dashboard/parent", label: "홈", icon: Home },
