@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ export default function NotesPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <motion.h1 className="text-2xl font-bold" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>📝 수업 일지</motion.h1>
-        <Button className="bg-primary hover:bg-primary/90 rounded-full"><Plus className="w-4 h-4 mr-2" /> 새 일지 작성</Button>
+        <Link href="/dashboard/teacher/notes/new"><Button className="bg-primary hover:bg-primary/90 rounded-full"><Plus className="w-4 h-4 mr-2" /> 새 일지 작성</Button></Link>
       </div>
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />

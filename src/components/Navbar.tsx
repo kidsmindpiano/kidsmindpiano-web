@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useAuth } from "@/lib/AuthContext";
@@ -18,7 +19,13 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push("/");
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border">
@@ -36,9 +43,14 @@ export default function Navbar() {
           ))}
           {!loading && (
             user ? (
-              <Link href="/dashboard">
-                <Button size="sm" className="bg-primary hover:bg-primary/90 rounded-full px-5 shadow-md shadow-primary/20">마이페이지</Button>
-              </Link>
+              <>
+                <Link href="/dashboard">
+                  <Button size="sm" className="bg-primary hover:bg-primary/90 rounded-full px-5 shadow-md shadow-primary/20">마이페이지</Button>
+                </Link>
+                <Button size="sm" variant="ghost" onClick={handleLogout} className="text-muted-foreground hover:text-red-500">
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </>
             ) : (
               <>
                 <Link href="/login">
@@ -65,9 +77,14 @@ export default function Navbar() {
                 <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-sm font-medium py-2">{l.label}</Link>
               ))}
               {user ? (
-                <Link href="/dashboard" onClick={() => setOpen(false)}>
-                  <Button className="w-full bg-primary rounded-full">마이페이지</Button>
-                </Link>
+                <>
+                  <Link href="/dashboard" onClick={() => setOpen(false)}>
+                    <Button className="w-full bg-primary rounded-full">마이페이지</Button>
+                  </Link>
+                  <Button variant="ghost" onClick={() => { setOpen(false); handleLogout(); }} className="w-full text-muted-foreground hover:text-red-500">
+                    <LogOut className="w-4 h-4 mr-2" /> 로그아웃
+                  </Button>
+                </>
               ) : (
                 <>
                   <Link href="/login" onClick={() => setOpen(false)}><Button variant="outline" className="w-full rounded-full">로그인</Button></Link>
