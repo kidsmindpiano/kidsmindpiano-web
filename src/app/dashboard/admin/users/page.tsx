@@ -1,9 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Search, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import { useState } from "react";
 
 const roleBadge: Record<string, string> = { admin: "bg-[#FF6B6B]/10 text-[#FF6B6B]", teacher: "bg-primary/10 text-primary", parent: "bg-[#FFB547]/10 text-[#FFB547]", student: "bg-[#3DBB7D]/10 text-[#3DBB7D]" };
@@ -26,7 +28,7 @@ export default function UsersPage() {
   const filtered = users.filter(u => u.name.includes(search) || u.email.includes(search));
   return (
     <div>
-      <motion.h1 className="text-2xl font-bold mb-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>👥 사용자 관리</motion.h1>
+      <div className="flex items-center justify-between mb-6"><motion.h1 className="text-2xl font-bold" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>👥 사용자 관리</motion.h1><Link href="/dashboard/admin/users/create"><Button className="bg-primary hover:bg-primary/90 rounded-full"><Plus className="w-4 h-4 mr-2" /> 새 계정 만들기</Button></Link></div>
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input placeholder="이름 또는 이메일 검색..." className="pl-10" value={search} onChange={e => setSearch(e.target.value)} />
