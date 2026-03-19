@@ -77,9 +77,6 @@ export default function AboutPage() {
           <ConcertCarousel />
         </div>
       </section>
-    </div>
-  );
-}
 
       {/* 수업 방식 */}
       <section className="py-16 max-w-5xl mx-auto px-4">
@@ -178,4 +175,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
+    </div>
+  );
+}

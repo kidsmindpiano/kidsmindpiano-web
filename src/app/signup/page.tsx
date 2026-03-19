@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useAuth, UserRole } from "@/lib/AuthContext";
 import { supabase } from "@/lib/supabase";
 
-export default function SignupPage() {
+function SignupPageInner() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +22,8 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("redirect") || "/dashboard";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ export default function SignupPage() {
   const handleSocialLogin = async (provider: "google" | "kakao") => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: { redirectTo: `${window.location.origin}${redirectPath}` },
     });
     if (error) setError(error.message);
   };
@@ -117,4 +119,8 @@ export default function SignupPage() {
       </motion.div>
     </div>
   );
+}
+
+export default function SignupPage() {
+  return <Suspense><SignupPageInner /></Suspense>;
 }
