@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, MessageCircle, ArrowRight, ArrowLeft, Check, ChevronRight } from "lucide-react";
+import { Send, MessageCircle, ArrowRight, ArrowLeft, Check, ChevronRight, Clock, CalendarDays, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,12 @@ export default function ContactPage() {
   const agreed = agree1 && agree2 && agree3 && agree4;
   const [booked, setBooked] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState<{ start: string; end: string; startKST: string } | null>(null);
+  const [availableSlots, setAvailableSlots] = useState<{ start: string; end: string; startKST: string }[]>([]);
+  const [slotsLoading, setSlotsLoading] = useState(false);
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingError, setBookingError] = useState("");
   const [form, setForm] = useState({
     studentName: "", birthDate: "", pianoExperience: "",
     parentName: "", kakaoId: "", email: "", country: "",
@@ -31,6 +37,102 @@ export default function ContactPage() {
   const handleSubmit = () => setStep(TOTAL_STEPS + 1);
   const canProceedStep1 = agreed && form.studentName.trim() !== "";
   const canProceedStep2 = form.parentName.trim() !== "" && form.email.trim() !== "" && form.country.trim() !== "";
+
+  // Generate next 14 days for date picker
+  const getNext14Days = useCallback(() => {
+    const days: { date: string; label: string; dayOfWeek: string }[] = [];
+    const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+    for (let i = 1; i <= 14; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() + i);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      days.push({
+        date: `${yyyy}-${mm}-${dd}`,
+        label: `${Number(mm)}/${Number(dd)}`,
+        dayOfWeek: dayNames[d.getDay()],
+      });
+    }
+    return days;
+  }, []);
+
+  const next14Days = getNext14Days();
+
+  // Fetch slots when date changes
+  useEffect(() => {
+    if (!selectedDate) return;
+    setSlotsLoading(true);
+    setSelectedSlot(null);
+    setBookingError("");
+    fetch(`/api/calendar/available-slots?date=${selectedDate}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAvailableSlots(data.slots || []);
+      })
+      .catch(() => {
+        setAvailableSlots([]);
+        setBookingError("시간 정보를 불러올 수 없습니다.");
+      })
+      .finally(() => setSlotsLoading(false));
+  }, [selectedDate]);
+
+  // Book a slot
+  const handleBookSlot = async () => {
+    if (!selectedSlot) return;
+    setBookingLoading(true);
+    setBookingError("");
+    try {
+      const res = await fetch("/api/calendar/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          startTime: selectedSlot.start,
+          endTime: selectedSlot.end,
+          studentName: form.studentName,
+          parentEmail: form.email,
+          parentName: form.parentName,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBooked(true);
+      } else {
+        setBookingError(data.error || "예약에 실패했습니다.");
+      }
+    } catch {
+      setBookingError("네트워크 오류가 발생했습니다.");
+    } finally {
+      setBookingLoading(false);
+    }
+  };
+
+  // Group slots by time window
+  const groupSlots = (slots: typeof availableSlots) => {
+    const morning: typeof slots = [];
+    const afternoon: typeof slots = [];
+    const evening: typeof slots = [];
+    for (const s of slots) {
+      const h = parseInt(s.startKST.split(":")[0]);
+      if (h < 12) morning.push(s);
+      else if (h < 18) afternoon.push(s);
+      else evening.push(s);
+    }
+    return { morning, afternoon, evening };
+  };
+
+  // Format time for user's perspective
+  const formatSlotTime = (slot: { start: string; startKST: string }) => {
+    const local = new Date(slot.start);
+    const localH = local.getHours();
+    const localM = String(local.getMinutes()).padStart(2, "0");
+    const period = localH < 12 ? "AM" : "PM";
+    const h12 = localH === 0 ? 12 : localH > 12 ? localH - 12 : localH;
+    return {
+      kst: slot.startKST,
+      local: `${h12}:${localM} ${period}`,
+    };
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F8F6FF] to-white">
@@ -213,22 +315,164 @@ export default function ContactPage() {
           {step === 4 && (
             <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
               <Card className="border-0 shadow-lg"><CardContent className="p-8">
-                <h2 className="text-xl font-bold mb-6">Step 4. 수업 시간 선택</h2>
-                <div className="rounded-xl overflow-hidden border shadow-sm mb-6" style={{height: "600px"}}>
-                  <iframe
-                    src="https://calendar.app.google/d5STKQnU2G1XMfft"
-                    style={{border: 0, width: "100%", height: "100%"}}
-                    frameBorder="0"
-                    title="수업 시간 예약"
-                  />
+                <h2 className="text-xl font-bold mb-2">Step 4. 수업 시간 선택</h2>
+                <p className="text-sm text-muted-foreground mb-6">원장선생님 최지혜와 40분 퍼스트레슨 시간을 선택해주세요.</p>
+
+                {/* Date Picker */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CalendarDays className="w-4 h-4 text-[#7C5CFC]" />
+                    <span className="text-sm font-semibold">날짜 선택</span>
+                  </div>
+                  <div className="flex gap-2 overflow-x-auto pb-2 -mx-2 px-2 scrollbar-thin">
+                    {next14Days.map((day) => {
+                      const isSelected = selectedDate === day.date;
+                      const isSun = day.dayOfWeek === "일";
+                      const isSat = day.dayOfWeek === "토";
+                      return (
+                        <button
+                          key={day.date}
+                          onClick={() => setSelectedDate(day.date)}
+                          className={`flex-shrink-0 w-16 py-3 rounded-xl text-center transition-all border-2 ${
+                            isSelected
+                              ? "border-[#7C5CFC] bg-[#7C5CFC]/10 text-[#7C5CFC] font-bold"
+                              : "border-transparent bg-gray-50 hover:bg-gray-100"
+                          }`}
+                        >
+                          <div className={`text-xs ${isSun ? "text-[#FF6B6B]" : isSat ? "text-[#4CB9E7]" : "text-muted-foreground"}`}>
+                            {day.dayOfWeek}
+                          </div>
+                          <div className="text-sm font-medium mt-1">{day.label}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground mb-4 text-center">위 캘린더에서 원하는 시간을 선택해주세요! 예약이 안 보이면 <a href="https://calendar.app.google/d5STKQnU2G1XMfft" target="_blank" className="text-primary hover:underline">여기를 클릭</a>하세요.</p>
-                <div className="bg-gray-50 rounded-xl p-4">
-                  <label className="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" checked={booked} onChange={(e) => setBooked(e.target.checked)} className="w-5 h-5 rounded" />
-                    <span className="text-sm font-medium">수업 시간을 예약했어요! ✅</span>
-                  </label>
-                </div>
+
+                {/* Time Slots */}
+                {selectedDate && (
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Clock className="w-4 h-4 text-[#7C5CFC]" />
+                      <span className="text-sm font-semibold">시간 선택</span>
+                      <span className="text-xs text-muted-foreground">(한국시간 기준 / 괄호 안은 현지시간)</span>
+                    </div>
+
+                    {slotsLoading ? (
+                      <div className="flex items-center justify-center py-12 text-muted-foreground">
+                        <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                        <span className="text-sm">시간을 불러오는 중...</span>
+                      </div>
+                    ) : availableSlots.length === 0 ? (
+                      <div className="text-center py-8 bg-gray-50 rounded-xl">
+                        <p className="text-sm text-muted-foreground">이 날짜에 가능한 시간이 없습니다.</p>
+                        <p className="text-xs text-muted-foreground mt-1">다른 날짜를 선택해주세요.</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {(() => {
+                          const groups = groupSlots(availableSlots);
+                          const sections = [
+                            { label: "오전", emoji: "🌅", color: "#FFB547", slots: groups.morning },
+                            { label: "오후", emoji: "☀️", color: "#3DBB7D", slots: groups.afternoon },
+                            { label: "저녁", emoji: "🌙", color: "#4CB9E7", slots: groups.evening },
+                          ];
+                          return sections.filter((s) => s.slots.length > 0).map((section) => (
+                            <div key={section.label}>
+                              <p className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-1">
+                                <span>{section.emoji}</span> {section.label} (한국시간)
+                              </p>
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                {section.slots.map((slot) => {
+                                  const times = formatSlotTime(slot);
+                                  const isSelected = selectedSlot?.start === slot.start;
+                                  return (
+                                    <button
+                                      key={slot.start}
+                                      onClick={() => {
+                                        setSelectedSlot(slot);
+                                        setBooked(false);
+                                        setBookingError("");
+                                      }}
+                                      disabled={booked}
+                                      className={`p-3 rounded-xl text-left transition-all border-2 ${
+                                        isSelected
+                                          ? "border-[#7C5CFC] bg-[#7C5CFC]/10"
+                                          : "border-transparent bg-gray-50 hover:bg-gray-100"
+                                      } ${booked ? "opacity-60 cursor-not-allowed" : ""}`}
+                                    >
+                                      <div className={`text-sm font-bold ${isSelected ? "text-[#7C5CFC]" : ""}`}>
+                                        {times.kst}
+                                      </div>
+                                      <div className="text-xs text-muted-foreground mt-0.5">
+                                        현지 {times.local}
+                                      </div>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          ));
+                        })()}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Booking confirmation */}
+                {selectedSlot && !booked && (
+                  <div className="bg-[#7C5CFC]/5 rounded-xl p-5 mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <div>
+                        <p className="text-sm font-bold">선택한 시간</p>
+                        <p className="text-lg font-bold text-[#7C5CFC]">
+                          {selectedDate} {selectedSlot.startKST} (KST)
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          현지시간: {formatSlotTime(selectedSlot).local}
+                        </p>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={handleBookSlot}
+                      disabled={bookingLoading}
+                      className="w-full py-5 rounded-full bg-[#7C5CFC] hover:bg-[#7C5CFC]/90 text-white"
+                    >
+                      {bookingLoading ? (
+                        <><Loader2 className="w-4 h-4 animate-spin mr-2" /> 예약 중...</>
+                      ) : (
+                        <>이 시간으로 예약하기</>
+                      )}
+                    </Button>
+                    {bookingError && (
+                      <p className="text-sm text-[#FF6B6B] mt-2 text-center">{bookingError}</p>
+                    )}
+                  </div>
+                )}
+
+                {/* Booking success */}
+                {booked && selectedSlot && (
+                  <div className="bg-[#3DBB7D]/10 rounded-xl p-5 mb-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Check className="w-5 h-5 text-[#3DBB7D]" />
+                      <span className="font-bold text-[#3DBB7D]">예약 완료!</span>
+                    </div>
+                    <p className="text-sm">
+                      <strong>{selectedDate}</strong> {selectedSlot.startKST} (한국시간)에 예약되었습니다.
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      확인 이메일이 {form.email}로 발송됩니다.
+                    </p>
+                  </div>
+                )}
+
+                {!selectedDate && (
+                  <div className="text-center py-8 bg-gray-50 rounded-xl mb-6">
+                    <CalendarDays className="w-8 h-8 text-muted-foreground mx-auto mb-2 opacity-40" />
+                    <p className="text-sm text-muted-foreground">위에서 날짜를 먼저 선택해주세요</p>
+                  </div>
+                )}
+
                 <div className="flex gap-3 mt-8">
                   <Button onClick={() => setStep(3)} variant="outline" className="flex-1 py-5 rounded-full"><ArrowLeft className="mr-2 w-4 h-4" /> 이전</Button>
                   <Button onClick={() => setStep(5)} disabled={!booked} className="flex-1 py-5 rounded-full bg-primary hover:bg-primary/90">다음 <ArrowRight className="ml-2 w-4 h-4" /></Button>
