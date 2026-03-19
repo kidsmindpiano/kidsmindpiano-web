@@ -14,7 +14,11 @@ const TOTAL_STEPS = 3;
 
 export default function ContactPage() {
   const [step, setStep] = useState(0);
-  const [agreed, setAgreed] = useState(false);
+  const [agree1, setAgree1] = useState(false);
+  const [agree2, setAgree2] = useState(false);
+  const [agree3, setAgree3] = useState(false);
+  const [agree4, setAgree4] = useState(false);
+  const agreed = agree1 && agree2 && agree3 && agree4;
   const [form, setForm] = useState({
     studentName: "", birthDate: "", pianoExperience: "",
     parentName: "", kakaoId: "", email: "", country: "",
@@ -113,11 +117,34 @@ export default function ContactPage() {
             <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
               <Card className="border-0 shadow-lg"><CardContent className="p-8">
                 <h2 className="text-xl font-bold mb-6">Step 1. 동의 & 학생 정보</h2>
-                <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                  <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-1 w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary" />
-                    <span className="text-sm">본인은 &apos;키즈마인드피아노&apos;의 온라인 수업을 참여함에 있어, 필요한 정보를 키즈마인드피아노에게 제공하는 것을 <strong>동의합니다</strong>.</span>
-                  </label>
+                <div className="space-y-4 mb-6">
+                  <p className="text-sm font-semibold text-muted-foreground">수업 관련 동의서 작성</p>
+                  
+                  <div className="bg-gray-50 rounded-xl p-4 space-y-4">
+                    <div>
+                      <p className="text-sm font-bold mb-1">1. 개인정보 수집 및 이용 동의 (GDPR/FERPA 준수)</p>
+                      <p className="text-xs text-muted-foreground mb-2">본인은 키즈마인드피아노가 원활한 수업 진행 및 학사 관리를 목적으로 학생 및 학부모의 개인정보(이름, 연락처, 이메일, 거주 국가)를 수집 및 이용하는 데 동의합니다.</p>
+                      <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={agree1} onChange={(e) => setAgree1(e.target.checked)} className="w-4 h-4 rounded" /><span className="text-sm">동의함</span></label>
+                    </div>
+                    
+                    <div className="border-t pt-3">
+                      <p className="text-sm font-bold mb-1">2. 수업 녹화 및 품질 관리(QA) 활용 동의</p>
+                      <p className="text-xs text-muted-foreground mb-2">본인은 수업이 ①학생의 복습, ②강사의 반성, ③아카데미의 수업 품질 관리(QA) 목적으로 녹화될 수 있음을 인지하며 이에 동의합니다. 모든 녹화본은 30일 후 자동 파기되며, 학원의 명시적 동의 없이 외부에 공개되지 않습니다.</p>
+                      <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={agree2} onChange={(e) => setAgree2(e.target.checked)} className="w-4 h-4 rounded" /><span className="text-sm">동의함</span></label>
+                    </div>
+                    
+                    <div className="border-t pt-3">
+                      <p className="text-sm font-bold mb-1">3. 아동보호 정책 및 온라인 수업 환경 고지</p>
+                      <p className="text-xs text-muted-foreground mb-2">본인은 만 18세 미만 미성년자의 1:1 온라인 수업 시 보호자가 즉시 개입 가능한 환경에서 진행되어야 한다는 아카데미의 아동보호 정책을 인지하였습니다.</p>
+                      <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={agree3} onChange={(e) => setAgree3(e.target.checked)} className="w-4 h-4 rounded" /><span className="text-sm">동의함</span></label>
+                    </div>
+                    
+                    <div className="border-t pt-3">
+                      <p className="text-sm font-bold mb-1">4. 수업 취소 및 환불 규정 동의</p>
+                      <p className="text-xs text-muted-foreground mb-2">퍼스트레슨은 2만원이며, 수업료를 납부하시면 레슨이 확정됩니다. 부득이하게 수업을 취소하셔야 될 경우: 거주 지역 기준 11:59pm 이전 취소 시 환불 및 보강 가능, 이후 취소 시 환불 및 보강 불가.</p>
+                      <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={agree4} onChange={(e) => setAgree4(e.target.checked)} className="w-4 h-4 rounded" /><span className="text-sm">동의함</span></label>
+                    </div>
+                  </div>
                 </div>
                 <div className="space-y-5">
                   <div><Label htmlFor="studentName" className="text-sm font-semibold">학생 성명 <span className="text-[#FF6B6B]">*</span></Label><Input id="studentName" value={form.studentName} onChange={(e) => updateForm("studentName", e.target.value)} placeholder="홍길동" className="mt-1.5" /></div>
