@@ -61,21 +61,26 @@ export default function ContactPage() {
 
   // Fetch slots when date changes
   useEffect(() => {
-    if (!selectedDate) return;
+    if (!selectedDate || step !== 4) return;
     setSlotsLoading(true);
     setSelectedSlot(null);
     setBookingError("");
     fetch(`/api/calendar/available-slots?date=${selectedDate}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAvailableSlots(data.slots || []);
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
       })
-      .catch(() => {
+      .then((data) => {
+        console.log("Calendar slots response:", data);
+        setAvailableSlots(Array.isArray(data.slots) ? data.slots : []);
+      })
+      .catch((err) => {
+        console.error("Calendar fetch error:", err);
         setAvailableSlots([]);
         setBookingError("시간 정보를 불러올 수 없습니다.");
       })
       .finally(() => setSlotsLoading(false));
-  }, [selectedDate]);
+  }, [selectedDate, step]);
 
   // Book a slot
   const handleBookSlot = async () => {
