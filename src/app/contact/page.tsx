@@ -214,17 +214,15 @@ export default function ContactPage() {
             <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
               <Card className="border-0 shadow-lg"><CardContent className="p-8">
                 <h2 className="text-xl font-bold mb-6">Step 4. 수업 시간 선택</h2>
-                <div className="bg-[#4CB9E7]/10 rounded-xl p-5 mb-6">
-                  <p className="text-sm mb-3">아래 링크의 구글 캘린더를 사용해서 수업을 예약해주세요!</p>
-                  <a href="https://calendar.app.google/d5STKQnU2G1XMfft" target="_blank" className="inline-flex items-center gap-2 bg-white rounded-lg px-4 py-3 shadow-sm border hover:shadow-md transition-shadow">
-                    <span className="text-2xl">📅</span>
-                    <div>
-                      <p className="font-bold text-sm">구글 캘린더에서 예약하기</p>
-                      <p className="text-xs text-muted-foreground">예약 후 이 페이지로 돌아와주세요!</p>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-muted-foreground" />
-                  </a>
+                <div className="rounded-xl overflow-hidden border shadow-sm mb-6" style={{height: "600px"}}>
+                  <iframe
+                    src="https://calendar.app.google/d5STKQnU2G1XMfft"
+                    style={{border: 0, width: "100%", height: "100%"}}
+                    frameBorder="0"
+                    title="수업 시간 예약"
+                  />
                 </div>
+                <p className="text-xs text-muted-foreground mb-4 text-center">위 캘린더에서 원하는 시간을 선택해주세요! 예약이 안 보이면 <a href="https://calendar.app.google/d5STKQnU2G1XMfft" target="_blank" className="text-primary hover:underline">여기를 클릭</a>하세요.</p>
                 <div className="bg-gray-50 rounded-xl p-4">
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input type="checkbox" checked={booked} onChange={(e) => setBooked(e.target.checked)} className="w-5 h-5 rounded" />
