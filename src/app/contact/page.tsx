@@ -21,7 +21,7 @@ export default function ContactPage() {
   const agreed = agree1 && agree2 && agree3 && agree4;
   const [booked, setBooked] = useState(false);
   const [paid, setPaid] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(() => { const d = new Date(); d.setDate(d.getDate() + 1); const yyyy = d.getFullYear(); const mm = String(d.getMonth() + 1).padStart(2, "0"); const dd = String(d.getDate()).padStart(2, "0"); return `${yyyy}-${mm}-${dd}`; });
   const [selectedSlot, setSelectedSlot] = useState<{ start: string; end: string; startKST: string } | null>(null);
   const [availableSlots, setAvailableSlots] = useState<{ start: string; end: string; startKST: string }[]>([]);
   const [slotsLoading, setSlotsLoading] = useState(false);
