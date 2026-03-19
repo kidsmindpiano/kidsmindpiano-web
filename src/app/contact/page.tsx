@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import Image from "next/image";
 
-const TOTAL_STEPS = 3;
+const TOTAL_STEPS = 5;
 
 export default function ContactPage() {
   const [step, setStep] = useState(0);
@@ -19,6 +19,8 @@ export default function ContactPage() {
   const [agree3, setAgree3] = useState(false);
   const [agree4, setAgree4] = useState(false);
   const agreed = agree1 && agree2 && agree3 && agree4;
+  const [booked, setBooked] = useState(false);
+  const [paid, setPaid] = useState(false);
   const [form, setForm] = useState({
     studentName: "", birthDate: "", pianoExperience: "",
     parentName: "", kakaoId: "", email: "", country: "",
@@ -45,17 +47,17 @@ export default function ContactPage() {
       {step > 0 && step <= TOTAL_STEPS && (
         <div className="max-w-2xl mx-auto px-4 pt-8">
           <div className="flex items-center justify-between mb-2">
-            {[1, 2, 3].map((s) => (
+            {[1, 2, 3, 4, 5].map((s) => (
               <div key={s} className="flex items-center flex-1">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all ${step >= s ? "bg-primary text-white" : "bg-gray-200 text-gray-500"}`}>
                   {step > s ? <Check className="w-4 h-4" /> : s}
                 </div>
-                {s < 3 && <div className={`flex-1 h-1 mx-2 rounded transition-all ${step > s ? "bg-primary" : "bg-gray-200"}`} />}
+                {s < 5 && <div className={`flex-1 h-1 mx-2 rounded transition-all ${step > s ? "bg-primary" : "bg-gray-200"}`} />}
               </div>
             ))}
           </div>
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>동의 & 학생정보</span><span>보호자 & 연락처</span><span>추가정보</span>
+            {["동의&학생", "보호자", "추가정보", "시간예약", "결제"].map((label, i) => <span key={i} className={i+1 === step ? "font-bold text-primary" : ""}>{label}</span>)}
           </div>
         </div>
       )}
@@ -202,13 +204,84 @@ export default function ContactPage() {
                 </div>
                 <div className="flex gap-3 mt-8">
                   <Button onClick={() => setStep(2)} variant="outline" className="flex-1 py-5 rounded-full"><ArrowLeft className="mr-2 w-4 h-4" /> 이전</Button>
-                  <Button onClick={handleSubmit} className="flex-1 py-5 rounded-full bg-[#3DBB7D] hover:bg-[#3DBB7D]/90 text-white"><Send className="mr-2 w-4 h-4" /> 신청 완료!</Button>
+                  <Button onClick={() => setStep(4)} className="flex-1 py-5 rounded-full bg-primary hover:bg-primary/90">다음 <ArrowRight className="ml-2 w-4 h-4" /></Button>
                 </div>
               </CardContent></Card>
             </motion.div>
           )}
 
-          {step > TOTAL_STEPS && (
+          {step === 4 && (
+            <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <Card className="border-0 shadow-lg"><CardContent className="p-8">
+                <h2 className="text-xl font-bold mb-6">Step 4. 수업 시간 선택</h2>
+                <div className="bg-[#4CB9E7]/10 rounded-xl p-5 mb-6">
+                  <p className="text-sm mb-3">아래 링크의 구글 캘린더를 사용해서 수업을 예약해주세요!</p>
+                  <a href="https://calendar.app.google/d5STKQnU2G1XMfft" target="_blank" className="inline-flex items-center gap-2 bg-white rounded-lg px-4 py-3 shadow-sm border hover:shadow-md transition-shadow">
+                    <span className="text-2xl">📅</span>
+                    <div>
+                      <p className="font-bold text-sm">구글 캘린더에서 예약하기</p>
+                      <p className="text-xs text-muted-foreground">예약 후 이 페이지로 돌아와주세요!</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                  </a>
+                </div>
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" checked={booked} onChange={(e) => setBooked(e.target.checked)} className="w-5 h-5 rounded" />
+                    <span className="text-sm font-medium">수업 시간을 예약했어요! ✅</span>
+                  </label>
+                </div>
+                <div className="flex gap-3 mt-8">
+                  <Button onClick={() => setStep(3)} variant="outline" className="flex-1 py-5 rounded-full"><ArrowLeft className="mr-2 w-4 h-4" /> 이전</Button>
+                  <Button onClick={() => setStep(5)} disabled={!booked} className="flex-1 py-5 rounded-full bg-primary hover:bg-primary/90">다음 <ArrowRight className="ml-2 w-4 h-4" /></Button>
+                </div>
+              </CardContent></Card>
+            </motion.div>
+          )}
+
+          {step === 5 && (
+            <motion.div key="step5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <Card className="border-0 shadow-lg"><CardContent className="p-8">
+                <h2 className="text-xl font-bold mb-6">Step 5. 수업료 결제</h2>
+                <p className="text-sm text-muted-foreground mb-4">아래 방법 중 하나를 선택해서 결제해주세요!</p>
+                
+                <div className="space-y-4 mb-6">
+                  <div className="bg-[#FFB547]/10 rounded-xl p-5">
+                    <h3 className="font-bold mb-2">🇰🇷 원화 결제 | 40분 수업 1회 / 2만원</h3>
+                    <div className="space-y-2 text-sm">
+                      <a href="https://toss.me/kidsmindpiano" target="_blank" className="flex items-center gap-2 text-primary hover:underline">
+                        <span>💙</span> 토스로 송금하기
+                      </a>
+                      <p className="text-muted-foreground">계좌이체: 국민은행 549801-01-235338<br />비자빼(키즈마인드피아노)</p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-[#4CB9E7]/10 rounded-xl p-5">
+                    <h3 className="font-bold mb-2">🌍 해외 결제 | 40분 수업 1회 / $20</h3>
+                    <a href="https://www.paypal.me/kidsmindpiano" target="_blank" className="flex items-center gap-2 text-sm text-primary hover:underline">
+                      <span>💳</span> PayPal로 결제하기
+                    </a>
+                  </div>
+                </div>
+                
+                <p className="text-xs text-muted-foreground mb-4">※ 결제 관련 문의는 <a href="http://pf.kakao.com/_xgjlmn" target="_blank" className="text-primary hover:underline">카카오채널</a>에서 편하게 문의해주세요!</p>
+                
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" checked={paid} onChange={(e) => setPaid(e.target.checked)} className="w-5 h-5 rounded" />
+                    <span className="text-sm font-medium">수업료를 결제했어요! ✅</span>
+                  </label>
+                </div>
+                
+                <div className="flex gap-3 mt-8">
+                  <Button onClick={() => setStep(4)} variant="outline" className="flex-1 py-5 rounded-full"><ArrowLeft className="mr-2 w-4 h-4" /> 이전</Button>
+                  <Button onClick={handleSubmit} disabled={!paid} className="flex-1 py-5 rounded-full bg-[#3DBB7D] hover:bg-[#3DBB7D]/90 text-white"><Send className="mr-2 w-4 h-4" /> 신청 완료!</Button>
+                </div>
+              </CardContent></Card>
+            </motion.div>
+          )}
+
+                    {step > TOTAL_STEPS && (
             <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
               <Card className="border-0 shadow-lg"><CardContent className="p-10 text-center">
                 <span className="text-6xl block mb-4">🎉</span>
