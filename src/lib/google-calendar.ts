@@ -121,7 +121,6 @@ export async function bookSlot(
       description: `학생: ${studentName}\n보호자: ${parentName}\n이메일: ${parentEmail}\n\n퍼스트레슨 (40분) - 키즈마인드피아노`,
       start: { dateTime: startTime },
       end: { dateTime: endTime },
-      attendees: [{ email: parentEmail }],
       reminders: {
         useDefault: false,
         overrides: [
