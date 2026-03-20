@@ -49,8 +49,10 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.error("Booking error detail:", errMsg);
     return NextResponse.json(
-      { error: "예약에 실패했습니다. 다시 시도해주세요." },
+      { error: "예약에 실패했습니다: " + errMsg },
       { status: 500 }
     );
   }
