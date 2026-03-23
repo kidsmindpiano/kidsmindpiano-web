@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <circle cx="200" cy="220" r="120" fill="#4CB9E7" opacity="0.08"/>
+  <rect x="110" y="240" width="180" height="80" rx="12" fill="#2D2D2D"/>
+  <rect x="110" y="232" width="180" height="16" rx="5" fill="#3D3D3D"/>
+  <rect x="118" y="254" width="20" height="56" rx="3" fill="white"/>
+  <rect x="142" y="254" width="20" height="56" rx="3" fill="white"/>
+  <rect x="166" y="254" width="20" height="56" rx="3" fill="white"/>
+  <rect x="190" y="254" width="20" height="56" rx="3" fill="white"/>
+  <rect x="214" y="254" width="20" height="56" rx="3" fill="white"/>
+  <rect x="238" y="254" width="20" height="56" rx="3" fill="white"/>
+  <rect x="262" y="254" width="20" height="56" rx="3" fill="white"/>
+  <circle cx="200" cy="160" r="38" fill="#FFDAB9"/>
+  <path d="M162 155Q167 118 200 112Q233 118 238 155Q238 137 228 132Q218 127 200 126Q182 127 172 132Q162 137 162 155Z" fill="#4A3728"/>
+  <circle cx="190" cy="157" r="3" fill="#2D2D2D"/>
+  <circle cx="210" cy="157" r="3" fill="#2D2D2D"/>
+  <path d="M188 173Q200 183 212 173" stroke="#4CB9E7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="175" cy="167" r="6" fill="#FF6B6B" opacity="0.2"/>
+  <circle cx="225" cy="167" r="6" fill="#FF6B6B" opacity="0.2"/>
+  <ellipse cx="200" cy="210" rx="30" ry="28" fill="#4CB9E7"/>
+  <path d="M155 190Q130 170 115 155" stroke="#FFDAB9" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M245 190Q270 170 285 155" stroke="#FFDAB9" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <rect x="95" y="130" width="40" height="30" rx="4" fill="white" stroke="#4CB9E7" stroke-width="2"/>
+  <line x1="102" y1="140" x2="128" y2="140" stroke="#4CB9E7" stroke-width="1.5" opacity="0.5"/>
+  <line x1="102" y1="146" x2="120" y2="146" stroke="#FFB547" stroke-width="1.5" opacity="0.5"/>
+  <line x1="102" y1="152" x2="125" y2="152" stroke="#FF6B6B" stroke-width="1.5" opacity="0.5"/>
+  <rect x="270" y="130" width="40" height="30" rx="4" fill="white" stroke="#4CB9E7" stroke-width="2"/>
+  <text x="278" y="150" font-size="16" fill="#4CB9E7">♪♫</text>
+  <text x="140" y="100" font-size="30" fill="#4CB9E7" opacity="0.5">♪</text>
+  <text x="250" y="110" font-size="22" fill="#FFB547" opacity="0.4">♫</text>
+  <text x="190" y="85" font-size="18" fill="#FF6B6B" opacity="0.3">♪</text>
+  <polygon points="320,180 322,186 329,186 324,190 326,196 320,192 314,196 316,190 311,186 318,186" fill="#4CB9E7" opacity="0.4"/>
+  <polygon points="80,200 82,205 88,205 83,208 85,213 80,210 75,213 77,208 72,205 78,205" fill="#FFB547" opacity="0.3"/>
+</svg>

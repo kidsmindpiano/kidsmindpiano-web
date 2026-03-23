@@ -10,8 +10,8 @@ const concerts = [
   { src: "/concerts/concert-6.jpg", title: "제8회 Picnic with Piano", date: "2025.05" },
   { src: "/concerts/concert-5.jpg", title: "엉터리 연주회", date: "2024" },
   { src: "/concerts/concert-4.jpg", title: "제5회 온라인 피아노 연주회", date: "2023.12" },
-  { src: "/concerts/concert-3.jpg", title: "제3회 온라인 기부연주회", date: "2022.09" },
   { src: "/concerts/concert-2.jpg", title: "제4회 온라인피아노연주회", date: "2023.04" },
+  { src: "/concerts/concert-3.jpg", title: "제3회 온라인 기부연주회", date: "2022.09" },
   { src: "/concerts/concert-1.jpg", title: "Global Music Festival", date: "2021.12" },
 ];
 

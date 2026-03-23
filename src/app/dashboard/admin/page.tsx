@@ -39,7 +39,7 @@ export default function AdminDashboard() {
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold">📝 최근 수업 일지</h2>
-            <Link href="/dashboard/admin/users" className="text-sm text-primary hover:underline">사용자 관리 →</Link>
+            <div className="flex gap-4"><Link href="/dashboard/admin/schedule" className="text-sm text-primary hover:underline">📅 수업 시간 관리 →</Link><Link href="/dashboard/admin/users" className="text-sm text-primary hover:underline">사용자 관리 →</Link></div>
           </div>
           <div className="space-y-3">
             {recentNotes.map((n, i) => (

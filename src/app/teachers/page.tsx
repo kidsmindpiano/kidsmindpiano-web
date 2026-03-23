@@ -12,7 +12,7 @@ const teachers = [
   {
     name: "최지혜",
     role: "대표 · 음악치료사",
-    image: "/teachers/jihye.jpg",
+    image: "/teachers/jihye-v3.jpg",
     quote: "아이의 마음을 먼저 읽고, 음악으로 대화합니다.",
     education: ["강원예술고등학교 피아노 전공", "총신대학교 교회음악과 피아노 전공", "평택대학원 음악치료 전공"],
     experience: ["온라인 피아노 레슨 5년+", "오프라인 피아노 레슨 8년+", "음악치료 임상 경험 1년", "12개국 학생 지도"],
@@ -26,7 +26,7 @@ const teachers = [
     ],
   },
   {
-    image: "/teachers/kyungseo.jpg",
+    image: "/teachers/kyungseo-v2.jpg",
     imgScale: 1,
     name: "김경서",
     role: "피아노 강사",
@@ -43,7 +43,7 @@ const teachers = [
     ],
   },
   {
-    image: "/teachers/seohee.jpg",
+    image: "/teachers/seohee-v2.jpg",
     imgScale: 1,
     name: "안서희",
     role: "피아노 강사",
@@ -64,7 +64,7 @@ const teachers = [
 export default function TeachersPage() {
   return (
     <div>
-      <section className="bg-gradient-to-br from-[#FDE8D8] to-[#D4EEF1] py-16 md:py-24">
+      <section className="bg-gradient-to-br from-white to-white py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.p className="text-primary font-medium mb-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>함께하는 선생님들</motion.p>
           <motion.h1 className="text-4xl md:text-5xl font-bold mb-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -79,7 +79,7 @@ export default function TeachersPage() {
             <Card className="border-0 shadow-lg overflow-hidden">
               <CardContent className="p-0">
                 <div className="grid md:grid-cols-5">
-                  <div className="md:col-span-2 bg-gradient-to-br from-[#FDE8D8] to-[#F5E6D8] p-8 flex flex-col justify-center">
+                  <div className="md:col-span-2 bg-gradient-to-br from-white to-gray-50 p-8 flex flex-col justify-center">
                     <div className="w-36 h-36 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg">
                       {t.image ? (
                         <Image src={t.image} alt={t.name} width={300} height={300} quality={100} className="w-full h-full object-cover object-top" />
