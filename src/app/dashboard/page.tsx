@@ -3,14 +3,15 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
+import { getDefaultDashboardPath } from "@/lib/authz";
 
 export default function DashboardRedirect() {
   const { role, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && role) {
-      router.replace(`/dashboard/${role}`);
+    if (!loading) {
+      router.replace(getDefaultDashboardPath(role));
     }
   }, [role, loading, router]);
 

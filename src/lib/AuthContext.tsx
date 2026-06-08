@@ -2,17 +2,18 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { supabase } from "./supabase";
-import { User, Session } from "@supabase/supabase-js";
-
-export type UserRole = "student" | "parent" | "teacher" | "admin";
+import { User, Session, AuthError } from "@supabase/supabase-js";
+import { fetchTrustedRole } from "./authz";
+import type { UserRole } from "./authz";
+export type { UserRole } from "./authz";
 
 type AuthContextType = {
   user: User | null;
   session: Session | null;
   role: UserRole | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
-  signUp: (email: string, password: string, name: string, role: UserRole) => Promise<{ error: any }>;
+  signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
+  signUp: (email: string, password: string, name: string, role: UserRole) => Promise<{ error: AuthError | null }>;
   signOut: () => Promise<void>;
 };
 
@@ -25,21 +26,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    let cancelled = false;
+
+    const applySession = async (session: Session | null) => {
+      setLoading(true);
       setSession(session);
       setUser(session?.user ?? null);
-      setRole((session?.user?.user_metadata?.role as UserRole) ?? null);
-      setLoading(false);
+      try {
+        const trustedRole = await fetchTrustedRole(
+          session?.user?.email,
+          session?.user?.user_metadata?.role,
+        );
+        if (!cancelled) setRole(trustedRole);
+      } catch {
+        // Fail closed: if the permissions sheet cannot be read, do not grant
+        // dashboard access based on self-declared metadata.
+        if (!cancelled) setRole(null);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      applySession(session);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setRole((session?.user?.user_metadata?.role as UserRole) ?? null);
-      setLoading(false);
+      applySession(session);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signIn = async (email: string, password: string) => {
